@@ -8,14 +8,14 @@ class ItemController {
 
   async getItems(req, res) {
     try {
-      const { page = 1, search = "", limit = 20 } = req.query;
+      const { page = 1, term = "", limit = 20 } = req.query;
       if (isNaN(parseInt(page)) || isNaN(parseInt(limit))) {
         return res
           .status(400)
           .json(formatResponse(400, "Invalid page or limit parameter", null));
       }
 
-      const items = await this.itemService.getItems(page, search, limit);
+      const items = await this.itemService.getItems(page, term, limit);
       res.json(formatResponse(200, "Items retrieved successfully", items));
     } catch (error) {
       res
